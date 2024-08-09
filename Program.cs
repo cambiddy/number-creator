@@ -27,67 +27,104 @@ string[] colors = {NORMAL, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, GREY };
 
 mainMenu();
 
+void editNumber()
+{
+    Clear();
+    currentNumber();
+    WriteLine("What would you like to do with your number?");
+    WriteLine("0: ADD");
+    WriteLine("1: SUBTRACT");
+    WriteLine("2: MULTIPLY");
+    WriteLine("3: DIVIDE");
+    WriteLine("4: Color Change");
+    WriteLine("5: New number");
+    WriteLine("6: Main Menu");
+
+    switch (usrActionInput(0, 6))
+    {
+        case 0:
+            addNumber();
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            colorChange();
+            break;
+        case 5:
+            newNumber();
+            break;
+        case 6:
+            mainMenu();
+            break;
+        default:
+            mainMenu();
+            break;
+    }
+
+}
+void addNumber()
+{
+    Clear();
+
+    WriteLine("What would you like to add to your number?");
+    WriteLine($"{colors[colorIndex]}" + usrNumber + $"{colors[0]}" + " + ");
+    int addNum = usrChooseNumber();
+    usrNumber = usrNumber + addNum;
+    currentNumber();
+    WriteLine();
+    WriteLine("What would you like to do now?");
+    WriteLine("0: Add another Number");
+    goBackWriteLine();
 
 
 
+}
+static void goBackWriteLine()
+{
+    WriteLine("1: Go back to the edit screen");
+    WriteLine("2: Go back to the number creator");
+    WriteLine("3: Go back to the main menu");
+}
+int usrChooseNumber()
+{
+    int chosenNumber = 0;
+    bool x = false;
+    while (x == false)
+    {
+        string actionInput = ReadLine();
+        
+        if (int.TryParse(actionInput, out chosenNumber))
+        {
+            x = true;
+            
+        }
+        else
+        {
+            WriteLine("Please enter a valid number: ");
+        }
+
+    }
+    return chosenNumber;
+}
 void newNumber()
 {
 	Clear();
     WriteLine($"Welcome to the Number Creator!");
-    WriteLine($"Your current number is: {colors[colorIndex]}"+ usrNumber + $"{colors[colorIndex]}");
+    currentNumber();
     WriteLine($"Would you like to {colors[1]}create your own number,{colors[0]} or would you like to be {YELLOW}assigned a number?{NORMAL}");
 	WriteLine($"{RED}0: Create my own");
 	WriteLine($"{YELLOW}1: Random number{NORMAL}");
 	switch (usrActionInput(0, 1))
 	{
 		case 0:
-			Clear();
-            bool x = false;
+            Clear();
             WriteLine("What would you like your number to be?");
-            while (x == false)
-            {
-                string actionInput = ReadLine();
-
-                if (int.TryParse(actionInput, out usrNumber))
-                {
-                    x = true;
-                }
-                else
-                {
-                    WriteLine("Please enter a valid number: ");
-                }
-
-            }
-            Clear();
-            WriteLine("Your number is now: " + usrNumber);
-            WriteLine("What color would you like your number to be?");
-            WriteLine("0: White");
-            WriteLine("1: Red");
-            WriteLine("2: Green");
-            WriteLine("3: Yellow");
-            WriteLine("4: Blue");
-            WriteLine("5: Magenta");
-            WriteLine("6: Cyan");
-            WriteLine("7: Grey");
-            colorIndex = usrActionInput(0, 7);
-            Clear();
-            WriteLine($"Your number is now: {colors[colorIndex]}" + usrNumber + $"{colors[0]}");
-            WriteLine("What do you want to do now?");
-            WriteLine("0: Go back to the main menu");
-            WriteLine("1: Edit my number");
-            switch(usrActionInput(0, 1))
-            {
-                case 0:
-                    mainMenu();
-                    break;
-                case 1:
-                    
-                    break;
-                default:
-                    WriteLine("what have you done?!?!");
-                    break;
-
-            }
+            usrNumber = usrChooseNumber();
+            colorChange();
 
 
             break;
@@ -104,9 +141,9 @@ void rerollHelp()
 {
     Clear();
     usrNumber = randomNumber();
-    WriteLine($"Your number is: {colors[colorIndex]}" + usrNumber +$"{colors[0]}");
+    currentNumber();
     Clear();
-    WriteLine($"Your number is now: {colors[colorIndex]}" + usrNumber + $"{colors[0]}");
+    currentNumber();
     WriteLine("What do you want to do now?");
     WriteLine("0: Go back to the main menu");
     WriteLine("1: Edit my number");
@@ -117,7 +154,7 @@ void rerollHelp()
             mainMenu();
             break;
         case 1:
-            ///                   NEED TO PUT EDIT NUMBER FUNCTION HERE
+            editNumber();
             break;
         case 2:
             rerollHelp();
@@ -197,30 +234,67 @@ static int usrActionInput(int rFrom, int rTo)
 	return usrAction;
 }
 
+void colorChange()
+{
+    Clear();
+    currentNumber();
+    WriteLine("What color would you like your number to be?");
+    WriteLine("0: White");
+    WriteLine("1: Red");
+    WriteLine("2: Green");
+    WriteLine("3: Yellow");
+    WriteLine("4: Blue");
+    WriteLine("5: Magenta");
+    WriteLine("6: Cyan");
+    WriteLine("7: Grey");
+    colorIndex = usrActionInput(0, 7);
+    Clear();
+    currentNumber();
+    WriteLine("What do you want to do now?");
+    WriteLine("0: Go back to the main menu");
+    WriteLine("1: Edit my number");
+    switch (usrActionInput(0, 1))
+    {
+        case 0:
+            mainMenu();
+            break;
+        case 1:
+            editNumber();
+            break;
+        default:
+            WriteLine("what have you done?!?!");
+            break;
+
+    }
+}
 void mainMenu()
 {
     Clear();
     WriteLine($"{colors[3]}Welcome to the Number Creator!{colors[0]}");
     WriteLine();
-    WriteLine($"Your current number is: {colors[colorIndex]}" + usrNumber + $"{colors[0]}");
+    currentNumber();
     WriteLine();
     WriteLine("What would you like to do now?: ");
     WriteLine("0:New Number");
-    WriteLine("1:HELP");
-    WriteLine("2:Settings");
-    WriteLine("3:Quit");
+    WriteLine("1:Edit Current Number");
+    WriteLine("2:HELP");
+    WriteLine("3:Settings");
+    WriteLine("4:Quit");
     switch (usrActionInput(0, 3))
     {
         case 0:
             newNumber();
             break;
         case 1:
-            help();
+            editNumber();
             break;
         case 2:
-            settings();
+            help();
             break;
         case 3:
+            settings();
+            break;
+        case 4:
             Environment.Exit(0);
             break;
         default:
@@ -346,5 +420,11 @@ void help()
 void settings()
 {
     Clear();
-    WriteLine("sfjhflkerfnjlkdsnvkjldsnbkj,dfngjkevnkjdfgkefjng");
+    WriteLine("NOT DEVELOPED YET. BAD");
+    
+} 
+
+void currentNumber()
+{
+   WriteLine($"Your current number is: {colors[colorIndex]}" + usrNumber + $"{colors[0]}");
 }
