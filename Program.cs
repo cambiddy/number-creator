@@ -1,9 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Drawing;
 using System.Security.Cryptography;
 using static System.Console;
 
 int usrNumber = 0;
-string NL = Environment.NewLine; // shortcut
+int colorIndex = 0;
+
+string NL   = Environment.NewLine; // shortcut
 string NORMAL = IsOutputRedirected ? "" : "\x1b[39m";
 string RED = IsOutputRedirected ? "" : "\x1b[91m";
 string GREEN = IsOutputRedirected ? "" : "\x1b[92m";
@@ -19,6 +22,9 @@ string NOUNDERLINE = IsOutputRedirected ? "" : "\x1b[24m";
 string REVERSE = IsOutputRedirected ? "" : "\x1b[7m";
 string NOREVERSE = IsOutputRedirected ? "" : "\x1b[27m";
 
+string[] colors = {NORMAL, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, GREY };
+
+
 mainMenu();
 
 
@@ -27,8 +33,9 @@ mainMenu();
 void newNumber()
 {
 	Clear();
-	WriteLine($"Welcome to the Number Creator! Would you like to {RED}create your own number,{NORMAL} or would you like to be {YELLOW}assigned a number?{NORMAL}");
-    WriteLine();
+    WriteLine($"Welcome to the Number Creator!");
+    WriteLine($"Your current number is: {colors[colorIndex]}"+ usrNumber + $"{colors[colorIndex]}");
+    WriteLine($"Would you like to {colors[1]}create your own number,{colors[0]} or would you like to be {YELLOW}assigned a number?{NORMAL}");
 	WriteLine($"{RED}0: Create my own");
 	WriteLine($"{YELLOW}1: Random number{NORMAL}");
 	switch (usrActionInput(0, 1))
@@ -52,7 +59,19 @@ void newNumber()
 
             }
             Clear();
-            WriteLine("Your number is now: " + usrNumber );
+            WriteLine("Your number is now: " + usrNumber);
+            WriteLine("What color would you like your number to be?");
+            WriteLine("0: White");
+            WriteLine("1: Red");
+            WriteLine("2: Green");
+            WriteLine("3: Yellow");
+            WriteLine("4: Blue");
+            WriteLine("5: Magenta");
+            WriteLine("6: Cyan");
+            WriteLine("7: Grey");
+            colorIndex = usrActionInput(0, 7);
+            Clear();
+            WriteLine($"Your number is now: {colors[colorIndex]}" + usrNumber + $"{colors[0]}");
             WriteLine("What do you want to do now?");
             WriteLine("0: Go back to the main menu");
             WriteLine("1: Edit my number");
@@ -62,6 +81,7 @@ void newNumber()
                     mainMenu();
                     break;
                 case 1:
+                    
                     break;
                 default:
                     WriteLine("what have you done?!?!");
@@ -72,26 +92,7 @@ void newNumber()
 
             break;
 		case 1:
-			Clear();
-			usrNumber = randomNumber();
-			WriteLine("Your number is: " + usrNumber);
-            Clear();
-            WriteLine("Your number is now: " + usrNumber);
-            WriteLine("What do you want to do now?");
-            WriteLine("0: Go back to the main menu");
-            WriteLine("1: Edit my number");
-            switch (usrActionInput(0, 1))
-            {
-                case 0:
-                    mainMenu();
-                    break;
-                case 1:
-                    break;
-                default:
-                    WriteLine("what have you done?!?!");
-                    break;
-
-            }
+            rerollHelp();
             break;
 		default:
 			WriteLine("what have you done???");
@@ -99,10 +100,40 @@ void newNumber()
 	}
 }
 
+void rerollHelp()
+{
+    Clear();
+    usrNumber = randomNumber();
+    WriteLine($"Your number is: {colors[colorIndex]}" + usrNumber +$"{colors[0]}");
+    Clear();
+    WriteLine($"Your number is now: {colors[colorIndex]}" + usrNumber + $"{colors[0]}");
+    WriteLine("What do you want to do now?");
+    WriteLine("0: Go back to the main menu");
+    WriteLine("1: Edit my number");
+    WriteLine("2: Re-roll my number");
+            switch (usrActionInput(0, 2))
+            {
+                case 0:
+            mainMenu();
+            break;
+        case 1:
+            ///                   NEED TO PUT EDIT NUMBER FUNCTION HERE
+            break;
+        case 2:
+            rerollHelp();
+            break;
+        default:
+            WriteLine("what have you done?!?!");
+            break;
+
+        }
+    }
 int randomNumber()
 {
     int rFrom = 0;
+    int rTo = 0;
     bool x = false;
+    Clear();
 	WriteLine("Where would you like your number to start?");
     while (x == false)
     {
@@ -119,8 +150,9 @@ int randomNumber()
 
     }
 
-    int rTo = 0;
+
     x = false;
+    Clear();
     WriteLine("Where would you like your number to end?");
     while (x == false)
     {
@@ -137,6 +169,8 @@ int randomNumber()
 
     }
     Random number = new();
+    Random color = new();
+    colorIndex = color.Next(0, 7);
 	return number.Next(rFrom, rTo);
 }
 
@@ -166,9 +200,9 @@ static int usrActionInput(int rFrom, int rTo)
 void mainMenu()
 {
     Clear();
-    WriteLine($"{YELLOW}Welcome to the Number Creator!{NORMAL}");
+    WriteLine($"{colors[3]}Welcome to the Number Creator!{colors[0]}");
     WriteLine();
-    WriteLine("Your current number is: " + usrNumber);
+    WriteLine($"Your current number is: {colors[colorIndex]}" + usrNumber + $"{colors[0]}");
     WriteLine();
     WriteLine("What would you like to do now?: ");
     WriteLine("0:New Number");
@@ -184,7 +218,7 @@ void mainMenu()
             help();
             break;
         case 2:
-            WriteLine("2:Settings");
+            settings();
             break;
         case 3:
             Environment.Exit(0);
@@ -307,4 +341,10 @@ void help()
             WriteLine("something went really really wrong.");
             break;
     }
+}
+
+void settings()
+{
+    Clear();
+    WriteLine("sfjhflkerfnjlkdsnvkjldsnbkj,dfngjkevnkjdfgkefjng");
 }
