@@ -46,10 +46,13 @@ void editNumber()
             addNumber();
             break;
         case 1:
+            subtractNumber();
             break;
         case 2:
+            multiplyNumber();
             break;
         case 3:
+            divideNumber();
             break;
         case 4:
             colorChange();
@@ -69,7 +72,6 @@ void editNumber()
 void addNumber()
 {
     Clear();
-
     WriteLine("What would you like to add to your number?");
     WriteLine($"{colors[colorIndex]}" + usrNumber + $"{colors[0]}" + " + ");
     int addNum = usrChooseNumber();
@@ -79,9 +81,156 @@ void addNumber()
     WriteLine("What would you like to do now?");
     WriteLine("0: Add another Number");
     goBackWriteLine();
+    switch(usrActionInput(0,3))
+    {
+        case 0:
+            addNumber();
+            break;
+        case 1:
+            editNumber();
+            break;
+        case 2:
+            newNumber();
+            break;
+        case 3:
+            mainMenu();
+            break;
+        default:
+            WriteLine("soemthing is rewwrong....");
+            break;
+    }
 
 
 
+}
+void subtractNumber()
+{
+    Clear();
+    WriteLine("What would you like to subtract from your number?");
+    WriteLine($"{colors[colorIndex]}" + usrNumber + $"{colors[0]}" + " - ");
+    int subNum = usrChooseNumber();
+    usrNumber = usrNumber - subNum;
+    currentNumber();
+    WriteLine();
+    WriteLine("What would you like to do now?");
+    WriteLine("0: Subtract another Number");
+    goBackWriteLine();
+    switch (usrActionInput(0, 3))
+    {
+        case 0:
+            subtractNumber();
+            break;
+        case 1:
+            editNumber();
+            break;
+        case 2:
+            newNumber();
+            break;
+        case 3:
+            mainMenu();
+            break;
+        default:
+            WriteLine("soemthing is rewwrong....");
+            break;
+    }
+}
+void multiplyNumber()
+{
+    Clear();
+    WriteLine("What would you like to multiply your number by?");
+    WriteLine($"{colors[colorIndex]}" + usrNumber + $"{colors[0]}" + " x ");
+    int multNum = usrChooseNumber();
+    usrNumber = usrNumber * multNum;
+    currentNumber();
+    WriteLine();
+    WriteLine("What would you like to do now?");
+    WriteLine("0: Multiply another Number");
+    goBackWriteLine();
+    switch (usrActionInput(0, 3))
+    {
+        case 0:
+            multiplyNumber();
+            break;
+        case 1:
+            editNumber();
+            break;
+        case 2:
+            newNumber();
+            break;
+        case 3:
+            mainMenu();
+            break;
+        default:
+            WriteLine("soemthing is rewwrong....");
+            break;
+    }
+}
+void divideNumber()
+{
+    WriteLine($"Would you like your number ({colors[colorIndex]}"+usrNumber + $"{colors[0]}) to be the Numerator (on top) or the Denominator (on bottom)?");
+    WriteLine("0: Numerator");
+    WriteLine("1: Denominator");
+
+    switch (usrActionInput(0, 1))
+    {
+        case 0:
+            WriteLine($"{colors[colorIndex]}" + usrNumber + $"{colors[0]}" + " / ");
+            int numNum = usrChooseNumber();
+            usrNumber = usrNumber / numNum;
+            currentNumber(); WriteLine();
+            WriteLine("What would you like to do now?");
+            WriteLine("0: Divide another Number");
+            goBackWriteLine();
+            switch (usrActionInput(0, 3))
+            {
+                case 0:
+                    divideNumber();
+                    break;
+                case 1:
+                    editNumber();
+                    break;
+                case 2:
+                    newNumber();
+                    break;
+                case 3:
+                    mainMenu();
+                    break;
+                default:
+                    WriteLine("soemthing is rewwrong....");
+                    break;
+            }
+           break;
+        case 1:
+            WriteLine("INPUT / " + $"{colors[colorIndex]}" + usrNumber + $"{colors[0]}");
+            int denNum = usrChooseNumber();
+            usrNumber = denNum / usrNumber;
+            currentNumber(); WriteLine();
+            WriteLine("What would you like to do now?");
+            WriteLine("0: Divide another Number");
+            goBackWriteLine();
+            switch (usrActionInput(0, 3))
+            {
+                case 0:
+                    divideNumber();
+                    break;
+                case 1:
+                    editNumber();
+                    break;
+                case 2:
+                    newNumber();
+                    break;
+                case 3:
+                    mainMenu();
+                    break;
+                default:
+                    WriteLine("soemthing is rewwrong....");
+                    break;
+            }
+            break;
+        default:
+            WriteLine("JIJIOWEFOWENKJSKLFJODEARGODHELPMEPLEASEFIJOAEHFI3QB");
+            break;
+    }
 }
 static void goBackWriteLine()
 {
@@ -280,7 +429,7 @@ void mainMenu()
     WriteLine("2:HELP");
     WriteLine("3:Settings");
     WriteLine("4:Quit");
-    switch (usrActionInput(0, 3))
+    switch (usrActionInput(0, 4))
     {
         case 0:
             newNumber();
@@ -421,6 +570,7 @@ void settings()
 {
     Clear();
     WriteLine("NOT DEVELOPED YET. BAD");
+    mainMenu();
     
 } 
 
