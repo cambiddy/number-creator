@@ -174,14 +174,14 @@ void mainMenu()
     WriteLine("0:New Number");
     WriteLine("1:HELP");
     WriteLine("2:Settings");
-    WriteLine("3: Quit");
+    WriteLine("3:Quit");
     switch (usrActionInput(0, 3))
     {
         case 0:
             newNumber();
             break;
         case 1:
-            WriteLine("1:HELP");
+            help();
             break;
         case 2:
             WriteLine("2:Settings");
@@ -194,4 +194,117 @@ void mainMenu()
             break;
     }
 
+}
+void help()
+{
+    Clear();
+    WriteLine("What do you need help with?");
+    WriteLine("0: How do I create a number?");
+    WriteLine("1; Who created this?");
+    WriteLine("2: Why did you create this?");
+    WriteLine("3: Will my number save after I quit?");
+    WriteLine("4: Isn't this just a calculator?");
+    WriteLine("5: Go home");
+    switch (usrActionInput(0, 5))
+    {
+        case 0:
+            Clear();
+            WriteLine("Just go back to the home screen and choose 'New Number' From there you can edit it however you'd like!");
+            WriteLine("0: Back to help");
+            WriteLine("1: Back to home");
+            switch (usrActionInput(0, 1))
+            {
+                case 0:
+                    help();
+                    break;
+                case 1:
+                    mainMenu();
+                    break;
+                default:
+                    WriteLine("what have you done?");
+                    break;
+            }
+            break;
+
+        case 1:
+            Clear();
+            WriteLine("This was created by Cameron Biddinger on August 9th, 2024. John Dunckell helped me a lot with this, big thanks to him!");
+            WriteLine("0: Back to help");
+            WriteLine("1: Back to home");
+            switch (usrActionInput(0, 1))
+            {
+                case 0:
+                    help();
+                    break;
+                case 1:
+                    mainMenu();
+                    break;
+                default:
+                    WriteLine("what have you done?");
+                    break;
+            }
+            break;
+
+        case 2:
+            Clear();
+            WriteLine("Good question!");
+            WriteLine("0: Back to help");
+            WriteLine("1: Back to home");
+            switch (usrActionInput(0, 1))
+            {
+                case 0:
+                    help();
+                    break;
+                case 1:
+                    mainMenu();
+                    break;
+                default:
+                    WriteLine("what have you done?");
+                    break;
+            }
+            break;
+        case 3:
+            Clear();
+            WriteLine("Not currently. That will (hopefully) be added in version 2.0 of the Number Creator!");
+            WriteLine("0: Back to help");
+            WriteLine("1: Back to home");
+            switch (usrActionInput(0, 1))
+            {
+                case 0:
+                    help();
+                    break;
+                case 1:
+                    mainMenu();
+                    break;
+                default:
+                    WriteLine("what have you done?");
+                    break;
+            }
+            break;
+        case 4:
+            Clear();
+            WriteLine("No! It's a Number Creator!");
+            WriteLine("0: Back to help");
+            WriteLine("1: Back to home");
+            switch (usrActionInput(0, 1))
+            {
+                case 0:
+                    help();
+                    break;
+                case 1:
+                    mainMenu();
+                    break;
+                default:
+                    WriteLine("what have you done?");
+                    break;
+            }
+            break;
+        case 5:
+            Clear();
+            mainMenu();
+            break;
+        default:
+            WriteLine("something went really really wrong.");
+            break;
+    }
 }
