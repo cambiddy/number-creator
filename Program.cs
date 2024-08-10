@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Security.Cryptography;
 using static System.Console;
 
-int usrNumber = 0;
+long usrNumber = 0;
 int colorIndex = 0;
 
 string NL   = Environment.NewLine; // shortcut
@@ -175,8 +175,20 @@ void divideNumber()
     {
         case 0:
             WriteLine($"{colors[colorIndex]}" + usrNumber + $"{colors[0]}" + " / ");
-            int numNum = usrChooseNumber();
-            usrNumber = usrNumber / numNum;
+            bool x = true;
+            while (x == true)
+                {
+                int numNum = usrChooseNumber();
+                if (numNum != 0)
+                {
+                    usrNumber = usrNumber / numNum;
+                    x = false;
+                }
+                else
+                {
+                    WriteLine("Sorry, you can't divide by 0");
+                }
+            }
             currentNumber(); WriteLine();
             WriteLine("What would you like to do now?");
             WriteLine("0: Divide another Number");
@@ -202,6 +214,20 @@ void divideNumber()
            break;
         case 1:
             WriteLine("INPUT / " + $"{colors[colorIndex]}" + usrNumber + $"{colors[0]}");
+            bool y = true;
+            while (y)
+            {
+                if (usrNumber == 0) {
+                    Clear();
+                    WriteLine("Sorry, you can't divide by 0! I'm Taking you back to divide your number again.");
+                    divideNumber();
+                        }
+                else
+                {
+                    y = false;
+                }
+            }
+
             int denNum = usrChooseNumber();
             usrNumber = denNum / usrNumber;
             currentNumber(); WriteLine();
@@ -570,10 +596,16 @@ void settings()
 {
     Clear();
     WriteLine("NOT DEVELOPED YET. BAD");
-    mainMenu();
-    
-} 
+    WriteLine("0: Go back to menu");
 
+    switch (usrActionInput(0, 1))
+    {
+        case 0:
+            mainMenu();
+            break;
+
+    }
+}
 void currentNumber()
 {
    WriteLine($"Your current number is: {colors[colorIndex]}" + usrNumber + $"{colors[0]}");
