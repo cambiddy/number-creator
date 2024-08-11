@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Security.Cryptography;
 using static System.Console;
 
+
 long usrNumber = 0;
 int colorIndex = 0;
 
@@ -26,6 +27,7 @@ string[] colors = {NORMAL, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, GREY };
 
 
 mainMenu();
+
 
 void editNumber()
 {
@@ -595,13 +597,112 @@ void help()
 void settings()
 {
     Clear();
-    WriteLine("NOT DEVELOPED YET. BAD");
-    WriteLine("0: Go back to menu");
+    WriteLine("Welcome to settings!");
+    currentNumber();
+    WriteLine("What settings would you like to change?");
+    WriteLine("0: Full reset");
+    WriteLine("1: Change text background color");
+    WriteLine("2: Back to main menu");
 
-    switch (usrActionInput(0, 1))
+
+    switch (usrActionInput(0, 2))
     {
         case 0:
+            Clear();
+            WriteLine("Are you sure? This will clear whatever number you have and the color that it is.");
+            WriteLine("0: No, take me back to settings");
+            WriteLine("1: Yes, I'm sure");
+            WriteLine("2: Back to menu");
+            switch (usrActionInput(0, 2))
+            {
+                case 0:
+                    settings();
+                    break;
+                case 1:
+                    usrNumber = 0;
+                    colorIndex = 0;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Clear();
+                    settings();
+                    break;
+                case 2:
+                    mainMenu();
+                    break;
+                default:
+                    WriteLine("wheujeurhyr");
+                    break;
+            }
+            break;
+        case 1:
+            Clear();
+            WriteLine("What color would you like the background to be?");
+            WriteLine("0: Black");
+            WriteLine("1: Red");
+            WriteLine("2: Yellow");
+            WriteLine("3: Green");
+            WriteLine("4: Blue");
+            WriteLine("5: Purple");
+            WriteLine("6: White");
+            WriteLine("7: Back to settings");
+            WriteLine("8: Back to main menu");
+
+            switch (usrActionInput(0, 8))
+            {
+                case 0:
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Clear();
+                    settings();
+                    break;
+                case 1:
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Clear();
+                    settings();
+                    break;
+                case 2:
+                    Console.BackgroundColor = ConsoleColor.Yellow;
+                    Clear();
+                    settings();
+                    break;
+                case 3:
+                    Console.BackgroundColor = ConsoleColor.Green;
+                    Clear();
+                    settings();
+                    break;
+                case 4:
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Clear();
+                    settings();
+                    break;
+                case 5:
+                    Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                    Clear();
+                    settings();
+                    break;
+                case 6:
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Clear();
+                    settings();
+                    break;
+                case 7:
+                    Clear();
+                    settings();
+                    break;
+                case 8:
+                    Clear();
+                    mainMenu();
+                    break;
+                default:
+                    WriteLine("OH MY GODSIJHDELFHWEBF");
+                    break;
+
+            }
+            break;
+        case 2:
+            Clear();
             mainMenu();
+            break;
+        default:
+            Console.WriteLine("Why are you here?");
             break;
 
     }
